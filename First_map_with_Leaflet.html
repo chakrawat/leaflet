@@ -1,0 +1,207 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My first leaflet</title>
+<!-- link css leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+crossorigin=""/>
+<!-- link js leaflet -->
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+crossorigin=""></script>
+
+ <style>
+    body {    
+    padding: 0;
+    margin: 0;  
+    }   
+    html,   
+    body,    
+    #map {   
+    height: 100%;   
+    width: 100%;    
+    }
+    
+    </style>
+</head>
+<body>
+    <div id='map' style = 'width: 100%; height: 100%'></div>
+    <script>
+    // create map
+       var map = L.map('map').setView([13.726663778863056, 100.50993626681172], 20) 
+    //    basedmap2
+       var OSM = L.tileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors'
+          }).addTo(map);     
+    //  basedmap2
+     var stadia = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.{ext}', {
+        minZoom: 0,
+        maxZoom: 20,
+        attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        ext: 'png'
+        }).addTo(map);
+        // basedmap3
+        var OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+	        maxZoom: 17,
+	        attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'    
+        }).addTo(map);
+        // create Layer
+        var baseLayers ={
+            'OSM' : OSM,
+            'stadia' :stadia,
+            'OpenTopoMap':  OpenTopoMap        
+        }
+        L.control.layers(baseLayers).addTo(map);
+
+        //การเพิ่มข้อข้อมูลลงบนแผนที่
+        // //1 location
+        // var iconsiam= L.marker([13.726663778863056, 100.50993626681172],
+        //     {
+        //     draggable: false, // ขยับจุด
+        //     title: 'iconsiam', // Add a title
+        //     opacity: 1.5, // Adjust the opacity
+        //     }
+        // ).addTo(map);
+        // //2 location
+        // var central_rama_2= L.marker([13.664094863562982, 100.43771416290586],
+        //     {
+        //     draggable: false, // ขยับจุด
+        //     title: 'central rama 2', // Add a title
+        //     opacity: 1.5, // Adjust the opacity
+        //     }
+        // ).addTo(map);
+        // //3 location
+        // var ancient_city= L.marker([13.53877539687356, 100.622600821405],
+        //     {
+        //     draggable: false, // ขยับจุด
+        //     title: 'ancient city', // Add a title
+        //     opacity: 1.5, // Adjust the opacity
+        //     }
+        // ).addTo(map);
+        // //4 location
+        // var central_westgate= L.marker([13.877116933778309, 100.41137312448586],
+        //     {
+        //     draggable: false, // ขยับจุด
+        //     title: 'central westgate', // Add a title
+        //     opacity: 1.5, // Adjust the opacity
+        //     }
+        // ).addTo(map);
+        //  //5 location
+        //  var Siam_Amazing_Park= L.marker([13.805327188851697, 100.69180693980434],
+        //     {
+        //     draggable: false, // ขยับจุด
+        //     title: 'Siam Amazing Park', // Add a title
+        //     opacity: 1.5, // Adjust the opacity
+        //     }
+        // ).addTo(map);
+        // //6 location
+        // var Terminal_21_Rama3= L.marker([13.688968252706015, 100.50541135331798],
+        //     {
+        //     draggable: false, // ขยับจุด
+        //     title: 'Terminal 21 Rama3', // Add a title
+        //     opacity: 1.5, // Adjust the opacity
+        //     }
+        // ).addTo(map);
+        // //7 location
+        // var Lumpini_Park_Thailand= L.marker([13.731683430313081, 100.54161256496216],
+        //     {
+        //     draggable: false, // ขยับจุด
+        //     title: 'Lumpini Park Thailand', // Add a title
+        //     opacity: 1.5, // Adjust the opacity
+        //     }
+        // ).addTo(map);
+        // //8 location
+        // var Mrt_rama_9_station= L.marker([13.75788826013705, 100.56514891395179],
+        //     {
+        //     draggable: false, // ขยับจุด
+        //     title: 'Mrt rama 9 station', // Add a title
+        //     opacity: 1.5, // Adjust the opacity
+        //     }
+        // ).addTo(map);
+        // //9 location
+        // var Suan_Luang_Rama_IX= L.marker([13.679720010748024, 100.66143920715564],
+        //     {
+        //     draggable: false, // ขยับจุด
+        //     title: 'Suan Luang Rama IX', // Add a title
+        //     opacity: 1.5, // Adjust the opacity
+        //     }
+        // ).addTo(map);
+        // //10 location
+        // var Mrt_Tao_Poon_station= L.marker([13.806112158291132, 100.53077172448452],
+        //     {
+        //     draggable: false, // ขยับจุด
+        //     title: ' Tao Poon station', // Add a title
+        //     opacity: 1.5, // Adjust the opacity
+        //     }
+        // ).addTo(map);
+    //    การเพิ่มวงกลม
+
+        //  var circle = L.circleMarker(
+        //     [13.726663778863056, 100.50993626681172],
+        //     {title :'iconsiam',
+        //     radius: 50,
+        //     color: "black",
+        //     fillColor: "blue"
+        //     }
+        //  ).addTo(map);
+
+      
+
+        //แสดงข้อมูลหลายจุด
+
+        var lo = [
+            ["iconsiam", 13.726663778863056, 100.50993626681172],
+            ["central rama 2", 13.664094863562982, 100.43771416290586],
+            ["ancient city", 13.53877539687356, 100.622600821405],
+            ["central westgate", 13.877116933778309, 100.41137312448586],
+            ["Siam Amazing Park", 13.805327188851697, 100.69180693980434],
+            ["Terminal 21 Rama3", 13.688968252706015, 100.50541135331798],
+            ["Lumpini Park Thailand", 13.731683430313081, 100.54161256496216],
+            ["Mrt rama 9 stati", 13.75788826013705, 100.56514891395179],
+            ["Suan Luang Rama IX", 13.679720010748024, 100.66143920715564],
+            ["Tao Poon station", 13.806112158291132, 100.53077172448452]
+        ];
+
+        
+    
+
+        //เปลี่ยน icon
+
+        var greenIcon = L.icon({ iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Bullet-red.png/640px-Bullet-red.png',
+            iconSize: [25, 50], // size of the icon
+            shadowSize: [50, 64], // size of the shadow
+            iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+            shadowAnchor: [4, 62], // the same for the shadow
+            popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+        });
+
+        for (var i = 0; i < lo.length; i++) {
+           
+            marker = new L.marker([lo[i][1], lo[i][2]], {icon: greenIcon})
+            .bindPopup(lo[i][0])
+            .addTo(map);
+        }
+
+
+        //description/Legend
+
+        var legend = L.control({position: "bottomright"});
+            legend.onAdd = function(map) {
+            var div = L.DomUtil.create("div", "legend");
+            div.innerHTML =
+            '<p><b>สถานที่ท่องเที่ยว</b></p><hr>' +
+            'Created by Chakrawat Luengsuttiphun<br>' +
+            'ID:64103010276<br>'+
+            '<img src="https://unity.swu.ac.th/wp-content/uploads/2020/07/SWU_Logo_EN_Color.png" width = 20%>'+
+            '<br><img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Bullet-red.png/640px-Bullet-red.png" width = 10% >'+ '<h2>สถานที่';
+            return div;
+        };
+
+        legend.addTo(map);
+    </script>
+</body>
+</html>
