@@ -1,0 +1,324 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+   
+body, html {
+  
+    margin-top: 0.5%;
+    padding: 0;
+    overflow: hidden;
+  
+}
+    
+body{
+    margin: 0;
+    padding: 0;
+}
+
+#map {
+
+     width: 2000px;
+    height: 950px;
+    margin: 0;
+    padding: 0; 
+    /* margin-left: 2%; */
+  margin-left: 2%;
+}
+
+
+
+
+
+.box {
+  display: flex;
+
+  width: 100%;
+  height: 100%;
+
+  
+ 
+   
+}
+
+.m {
+
+    justify-content: flex-end;
+    width: 1380px;
+    height: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-color: aqua;
+    margin-left: 2%;
+
+}
+
+
+.left{
+    background-color: rgb(247, 3, 3);
+    width:40%;
+    /* width: 40%; */
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+   
+
+  
+    
+}
+.SWU {
+    font-size: 80px;
+    font-weight: bold;
+    color: darkred;
+    text-align: center;
+    
+    
+}
+.station{
+    font-size: 30px;
+    text-align: center;
+    color: gray;
+    
+    
+}
+.line{
+    width: 250px;
+    height: 1px;
+    background-color: grey;
+    
+    
+}
+.btn a {
+    justify-content: left;
+    align-items: flex-start;
+    font-size: 5%;
+    
+}
+.threeeight a{
+    font-size: 13px;
+    /* font-weight: bold; */
+    text-align: left;
+
+ 
+    
+}
+
+.boxone{
+    justify-content: flex-start;
+    height: 20%;
+    /* width: 173.2px; */
+    width: 230px;
+    margin:0;
+    
+    
+    
+}
+
+
+.accordion{
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 255px;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 10px;
+    transition: 0.4s;
+    height: 8%;
+    
+  }
+  
+  .active, .accordion:hover {
+    background-color: #ccc;
+  }
+  
+  .accordion:after {
+    content: '\002B';
+    color: #777;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+  }
+  
+  .active:after {
+    content: "\2212";
+  }
+  
+  .panel {
+    padding: 0 px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out; 
+    height: 150px;
+    overflow-y: auto;
+    width: 255px;
+  
+    
+  }
+
+.text{
+    display: flex;
+    height: 100%;
+    width: 530px;
+    background-color: darkblue;
+    
+}
+
+.boxtwo{
+    padding-left: 7%;
+    height: 100%;
+    font-size: 20px;
+    /* width: 194px; */
+    width:230px;
+    
+ 
+    
+    
+}
+
+.here{
+    font-size: 20px;
+    text-align: center;
+}
+
+.there{
+    text-align: center;
+    font-size: 20px;
+}
+
+
+
+
+.btn::after {
+    content: attr(data-text);
+    font-weight: bold;
+}
+
+.text{
+    justify-content: flex-start;
+}
+
+#f{
+    width: 255px;
+    height: 40%;
+}
+
+.ad{
+    justify-content: flex-start;
+}
+
+
+/* จอมือถือ */
+
+@media screen and (max-width:431px ) {
+    .box{
+        /* display: grid;
+        grid-template-rows: 1fr 1fr 1fr;  */
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        
+
+
+        
+    }
+    
+    .text{
+        display:flex;
+        flex-direction: column;
+    }
+       
+    .m{
+        z-index: 2;
+        width: 100%;
+        height: 800px; 
+        /* width: 71%; */
+        margin-bottom: 40%;
+        position: relative;
+
+        
+
+    }
+
+    
+    
+    .left{
+        /* display: grid; */
+        height: 100%;
+       
+        
+    }
+
+    .ad{
+        
+
+        width: 100%;
+        height: 100%;
+        display: none;
+    }
+   
+      
+      #map {
+        
+        width: 100%;
+        height: 100%;
+        
+        
+        
+        
+      }
+      
+      .bus-info {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background-color: rgb(255, 255, 255);
+        color: white;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+        overflow-y: auto;
+        transition: height 0.5s;
+        border-radius: 15px 15px 0 0;
+        max-height: 100%;
+        height: 100px;
+        z-index: 10;
+        margin: 1px;
+        
+        
+       
+    
+      }
+      .bus-info.expanded {
+        height: 80%; /* ขยายความสูงของ bus-info เมื่อมี class expanded */
+    }
+      
+      .handle {
+        width: 100px;
+        height: 5px;
+        background-color: rgb(0, 0, 0);
+        border-radius: 5px;
+        margin: 10px auto;
+        cursor: pointer;
+        
+      }
+      #f{
+        width: 220px;
+        height: 60px;
+    }
+      .there{
+        color: black;
+      }
+
+      .here{
+        color: black;
+      }
+   
+    }
+
+    

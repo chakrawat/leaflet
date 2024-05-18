@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Geolocation</title>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+
+</head>
+
+<body>
+	<div id="map" style="width:100%; height: 100vh"></div>
+	<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
+	<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
+
+	<script>
+
+		var map = L.map('map').setView([13.7444989,100.5626958], 9);
+		mapLink = "<a href='http://openstreetmap.org'>OpenStreetMap</a>";
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: 'Leaflet &copy; ' + mapLink + ', contribution', maxZoom: 18 }).addTo(map);
+
+		var taxiIcon = L.icon({
+			iconUrl: 'https://cdn-icons-png.flaticon.com/128/416/416739.png',
+			iconSize: [70, 70]
+		})
+        // จุดเริ่มขึ้นรถเมล์ ฝั่งตรงข้ามมศว
+		var marker = L.marker([13.745735, 100.562580
+
+                    ], { icon: taxiIcon }).addTo(map);
+
+		// สิ้นสุดป้าย
+			var newMarker = L.marker([13.984582, 100.604249
+                    ], { draggable : false}).addTo(map);
+
+			L.Routing.control({
+				waypoints: [
+                    // ป้ายระหว่างทาง
+					L.latLng(13.745735, 100.562580),
+                    L.latLng(13.7580019,100.5650984),
+                    L.latLng(13.797399, 100.574385),
+                    L.latLng(13.814942, 100.575262),
+                    L.latLng(13.830848, 100.570253),
+                    L.latLng(13.8415336,100.5763083),
+                    L.latLng(13.8957075,100.6085103),
+                    L.latLng(13.984582, 100.604249)
+				],
+				createMarker :function(i, waypoint, n) {
+					return L.marker(waypoint.latLng, {
+						draggable : false
+					});
+				},
+				draggableWaypoints: false,
+				addWaypoints: false
+
+        //โค้ดรถขยับ 
+			}).on('routesfound', function (e) {
+				var routes = e.routes;
+				console.log(routes);
+
+				e.routes[0].coordinates.forEach(function (coord, index) {
+					setTimeout(function () {
+						marker.setLatLng([coord.lat, coord.lng]);
+					}, 100 * index)
+				})
+
+			}).addTo(map);
+		
+
+
+	</script>
+
+
+</body>
+
+</html>
