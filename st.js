@@ -1,40 +1,75 @@
  // create map
- var map = L.map('map').setView([13.745735, 100.562580], 14) 
+ var map = L.map('map').setView([13.745735, 100.562580], 16) 
 
    
  //  basedmap2
-      var OpenStreetMap_France = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-     maxZoom: 20,
-     attribution: '&copy; OpenStreetMap France | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    //   var OpenStreetMap_France = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+    //  maxZoom: 20,
+    //  attribution: '&copy; OpenStreetMap France | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    //   }).addTo(map);
+
+    var OpenStreetMap_France = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.{ext}', {
+      minZoom: 0,
+      maxZoom: 20,
+      attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      ext: 'png'
+    }).addTo(map);
+
+      var iconswuin = L.icon({
+        iconUrl: 'https://cdn-icons-png.flaticon.com/128/5193/5193846.png',
+        iconSize: [45, 55], // ขนาดของไอคอน
+        // iconAnchor: [22, 94], // จุดที่ไอคอนจะถูกยึดในพิกเซล
+        // popupAnchor: [-3, -76] // จุดที่ป๊อปอัพจะยึดในพิกเซล
+    });
+
+       var swuin= L.marker([13.744471, 100.562416],
+            {
+            draggable: false, // ขยับจุด
+            title: 'ป้ายรถเมล์ฝั่ง มศว', // Add a title
+            opacity: 1.5, // Adjust the opacity
+            icon:iconswuin,
+            zIndexOffset: 1000 
+            }
+        ).bindPopup("<b>จุดเริ่มขึ้นรถเมล์ ฝั่งมศว</b><br>เมื่อเดินออกจากมหาวิทยาลัย <br>ป้ายจะอยู่ฝั่งซ้ายมือ <br>เดินถัดไปจากตลาดสุขตา<br><img src='bus/image/สกรีนช็อต 2024-05-18 222922.png' alt='Scenic view' class='popup-image'>")
+        .openPopup();
+        swuin.addTo(map);
+
+
+        var iconswuout = L.icon({
+          iconUrl: 'https://cdn-icons-png.flaticon.com/128/5193/5193846.png',
+          iconSize: [45, 55], // ขนาดของไอคอน
+          // iconAnchor: [22, 94], // จุดที่ไอคอนจะถูกยึดในพิกเซล
+          // popupAnchor: [-3, -76] // จุดที่ป๊อปอัพจะยึดในพิกเซล
+      });
+
+      var swuout= L.marker([13.745735, 100.562580],
+        {
+        draggable: false, // ขยับจุด
+        title: 'ป้ายรถเมล์ฝั่งตรงข้าม มศว', // Add a title
+        opacity: 1.5, // Adjust the opacity
+        icon:iconswuout,
+        zIndexOffset: 1000
+        }
+    ).bindPopup("<b>จุดเริ่มขึ้นรถเมล์ ฝั่งตรงข่ามมศว</b><br>เมื่อเดินออกจากมหาวิทยาลัย <br>ป้ายจะอยู่ฝั่งขวามือ <br>เดินข้ามทางม้าลายเผื่อไปฝั่งตรงข้าม<br><img src='bus/image/สกรีนช็อต 2024-05-18 223212.png' alt='Scenic view' class='popup-image'>")
+    .openPopup();
+
+    swuout.addTo(map);
+
+    var busMarkers = L.layerGroup([swuin, swuout]);
+    busMarkers.addTo(map); 
+
+   
+
+      var baseLayers ={
+        'OSM' : OpenStreetMap_France}
+
+        L.control.layers(baseLayers, {
+          'SWU Station': busMarkers// Add busMarkers as a selectable layer
       }).addTo(map);
-
-      // var baseLayers ={
-      //   'OSM' : OpenStreetMap_France}
-
-        
     
-    // L.control.layers(baseLayers).addTo(map);
-    
-//      // basedmap3
-//      var OpenStreetMap_HOT = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-//          maxZoom: 19,
-//          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
-//      }).addTo(map);
-//      // create Layer
-//      var baseLayers ={
-//          'OSM' : OSM,
-//          'penStreetMap_France' :OpenStreetMap_France,
-//          'OpenStreetMap_HOT ': OpenStreetMap_HOT        
-//      }
-//      L.control.layers(baseLayers).addTo(map);
+   
 
-    //  var point = L.marker([13.744013721603636, 100.56610673954518],
-    //      {
-    //      draggable: false, // Make the icon dragable
-    //      title: 'SWU', // Add a title
-    //      opacity: 1.5 // Adjust the opacity
-    //      } 
-    //      ).addTo(map);
+    
 
 // onclick
 
@@ -67,61 +102,91 @@ var i;
 // map on click
 	
 // 53 go 
+let mapInitializeds = false;
     function showMap() {
+      
+
+      if (mapInitializeds) return; // If map is already initialized, do nothing
+    
+      mapInitializeds = true;
       // แสดงแผนที่
       var mapElement = document.getElementById("map");
       mapElement.style.display = "block";
      
-   var taxiIcon = L.icon({
-			iconUrl: 'https://cdn-icons-png.flaticon.com/128/1023/1023464.png',
-			iconSize: [70, 70]
-		})
-        // จุดเริ่มขึ้นรถเมล์ ฝั่งตรงข้ามมศว
-		var marker = L.marker([13.745735, 100.562580
+    
 
-                    ], { icon: taxiIcon }).addTo(map);
+      var taxiIcon = L.icon({
+        iconUrl: 'bus/image/3-53-Photoroom.png-Photoroom.png',
+        iconSize: [130, 100]
+      })
+          // จุดเริ่มขึ้นรถเมล์ ฝั่งตรงข้ามมศว
+      var marker = L.marker([13.745735, 100.562580
+                      ], { icon: taxiIcon,zIndexOffset: 100 }).addTo(map)
+            // .bindPopup("<b>3-53</b><br>").openPopup();
+  
+      var popupopposisswu = L.popup({ closeOnClick: false, autoClose: false })
+              .setLatLng([13.744471, 100.562416])
+              // .setContent("<b>จุดเริ่มขึ้นรถเมล์ ฝั่งตรงข่ามมศว</b><br>เมื่อเดินออกจากมหาวิทยาลัย <br>ป้ายจะอยู่ฝั่งขวามือ <br>เดินข้ามทางม้าลายเผื่อไปฝั่งตรงข้าม<br><img src='image/สกรีนช็อต 2024-05-18 223212.png' alt='Scenic view' class='popup-image'>")
+              // .openOn(map);
+  
+      // สิ้นสุดป้าย
+        // var newMarker = L.marker([13.7370886,100.6415429
+        //               ], { draggable : false}).addTo(map);
+  
+        L.Routing.control({
+          waypoints: [
+                      // ป้ายระหว่างทาง
+            L.latLng(13.745735, 100.562580),                   
+                      L.latLng(13.744782, 100.585211),
+                      L.latLng(13.744312, 100.602269),
+                      L.latLng(13.754578, 100.612504),
+                      L.latLng(13.752728, 100.618754),
+                      L.latLng(13.755564, 100.627647),
+                      L.latLng(13.752379, 100.639963),
+                      L.latLng(13.747958, 100.644239),
+                      L.latLng(13.7370886,100.6415429),
+                      // L.latLng(),
+                      // L.latLng(),
+                      // L.latLng(),
+                      // L.latLng()
+          ],
+          createMarker: function(i, waypoint, n) {
+            // กำหนดรูป Marker แต่ละตำแหน่ง
+            var iconUrl = 'bus/bus.png'; // เปลี่ยนเป็น URL ของรูปภาพ Marker ที่ต้องการใช้
+            var icon = L.icon({
+              iconUrl: iconUrl,
+              iconSize: [45, 55], // ขนาดของ Marker
+              // iconAnchor: [16, 32], // จุดศูนย์กลางของ Marker ที่ติดตั้งบนแผนที่
+              // popupAnchor: [0, -32] // จุดที่ Popup จะแสดงขึ้นเมื่อคลิกที่ Marker
+            });
 
-		// สิ้นสุดป้าย
-			var newMarker = L.marker([13.7370886,100.6415429
-                    ], { draggable : false}).addTo(map);
+          
 
-			L.Routing.control({
-				waypoints: [
-                    // ป้ายระหว่างทาง
-					L.latLng(13.745735, 100.562580),                   
-                    L.latLng(13.744782, 100.585211),
-                    L.latLng(13.744312, 100.602269),
-                    L.latLng(13.754578, 100.612504),
-                    L.latLng(13.752728, 100.618754),
-                    L.latLng(13.755564, 100.627647),
-                    L.latLng(13.752379, 100.639963),
-                    L.latLng(13.747958, 100.644239),
-                    L.latLng(13.7370886,100.6415429),
-                    // L.latLng(),
-                    // L.latLng(),
-                    // L.latLng(),
-                    // L.latLng()
-				],
-				createMarker :function(i, waypoint, n) {
-					return L.marker(waypoint.latLng, {
-						draggable : false
-					});
-				},
-				draggableWaypoints: false,
-				addWaypoints: false
-
-        //โค้ดรถขยับ 
-			}).on('routesfound', function (e) {
-				var routes = e.routes;
-				console.log(routes);
-
-				e.routes[0].coordinates.forEach(function (coord, index) {
-					setTimeout(function () {
-						marker.setLatLng([coord.lat, coord.lng]);
-					}, 100 * index)
-				})
-
-			}).addTo(map);
+        
+            return L.marker(waypoint.latLng, {
+              icon: icon,
+              draggable: false, // ปิดการลาก Marker
+              
+            });
+          },
+          draggableWaypoints: false,
+          addWaypoints: false,
+          lineOptions: {
+                  styles: [{ color: 'green', opacity: 1, weight: 5 }]
+              }
+  
+          //โค้ดรถขยับ 
+        }).on('routesfound', function (e) {
+          var routes = e.routes;
+          console.log(routes);
+  
+          e.routes[0].coordinates.forEach(function (coord, index) {
+            setTimeout(function () {
+              marker.setLatLng([coord.lat, coord.lng]);
+            }, 100 * index)
+          })
+  
+        }).addTo(map);
     }
 
 
@@ -130,7 +195,7 @@ var i;
  
 
 
-  const busInfo = document.querySelector('.bus-info');
+  const busInfo = document.querySelector('.text');
   const handle = document.querySelector('.handle');
   
   let isDragging = false;
@@ -158,6 +223,8 @@ var i;
   };
   
   handle.addEventListener('mousedown', onMouseDown);
+
+  
   
   // For touch devices
   const onTouchMove = (e) => {
@@ -182,3 +249,61 @@ var i;
   };
   
   handle.addEventListener('touchstart', onTouchStart);
+
+
+// คลิกmarker oppup
+//   swuin.on('click', function() {
+//     var textBox = document.querySelector('.text');
+//     if (textBox) {
+//         textBox.style.display = 'block'; // แสดงกล่องข้อความ
+//     }
+// });
+
+
+
+
+swuout.on('click', function() {
+  if (window.matchMedia("(max-width:481px )").matches){
+  // ซ่อนกล่องข้อความทั้งหมดก่อน
+  var allTextBoxes = document.querySelectorAll('.one, .boxone, .text, .boxtwo');
+  allTextBoxes.forEach(function(box) {
+      box.style.display = 'none';
+  });
+
+  // แสดงกล่องข้อความที่เกี่ยวข้องกับ swuout
+  var textBox = document.querySelector('.text');
+  var newTextBox = document.querySelector('.boxone');
+
+  if (textBox) {
+      textBox.style.display = 'block';
+  }
+
+  if (newTextBox) {
+      newTextBox.style.display = 'block';
+  }
+}
+});
+
+swuin.on('click', function() {
+  if (window.matchMedia("(max-width:481px )").matches){
+  // ซ่อนกล่องข้อความทั้งหมดก่อน
+  var allTextBoxes = document.querySelectorAll('.one, .boxone, .text, .boxtwo');
+  allTextBoxes.forEach(function(box) {
+      box.style.display = 'none';
+  });
+
+  // แสดงกล่องข้อความที่เกี่ยวข้องกับ swuin
+  var textBox = document.querySelector('.text');
+  var newTextBox = document.querySelector('.boxtwo');
+
+  if (textBox) {
+      textBox.style.display = 'block';
+  }
+
+  if (newTextBox) {
+      newTextBox.style.display = 'block';
+  }
+}
+});
+
+
